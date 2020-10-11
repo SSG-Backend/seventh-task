@@ -30,7 +30,7 @@ mongoose
 // Middlewares
 app.use(express.json());
 app.use(express.static(`${__dirname}/views`));
-app.set("view engine", "pug");
+app.set("view engine", "ejs");
 app.use(morgan("dev"));
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
@@ -38,24 +38,31 @@ app.use((req, res, next) => {
 });
 
 // route middleware
-
 app.use("/api/v1/books", bookRouter);
-app.use("/users", userRouter);
-app.get("/", async (req, res) => {
+app.use("/user", userRouter);
+
+// Home route
+app.get("/", (req, res) => {
   res.render("index", {
     title: "Welcome to BookStore",
   });
 });
 
-app.get("/books/add", async (req, res) => {
-  res.render("addbook", {
-    title: "Add Book",
-  });
+app.get("/register", (req, res) => {
+  res.render("register");
+});
+
+app.get("/all-books", (req, res) => {
+  res.render("allbooks");
+});
+
+app.get("/add-book", (req, res) => {
+  res.render("addbook");
 });
 
 // All possible middleware error
 app.all("*", (req, res, next) => {
-  next(new Error(`Could not find ${req.originalUrl} on the server!`));
+  next(Error(`Could not find ${req.originalUrl} on the server!`));
 });
 
 // start server
