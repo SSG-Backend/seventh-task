@@ -1,0 +1,120 @@
+<%- include('partials/header') %>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6">
+      <form action="" id="add-book-form">
+        <h2>Add Book</h2>
+        <div class="form-group">
+          <label for="input-title">Title</label>
+          <input
+            type="text"
+            id="input-title"
+            name="title"
+            class="form-control"
+          />
+        </div>
+        <div class="form-group">
+          <label for="input-author">Author</label>
+          <input
+            type="text"
+            id="input-author"
+            name="author"
+            class="form-control"
+          />
+        </div>
+        <div class="form-group">
+          <button type="submit" id="input-submit" class="btn btn-success">
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6" id="book-details">
+      <div class="row">
+        <div class="col-md-4 title-header">Title</div>
+        <div class="col-md-4 author-header">Author</div>
+        <div class="col-md-4 actions-header">Actions</div>
+      </div>
+      <% bookData.forEach(function (book) { %>
+		<div class="row mb-2">
+			<div class="col-md-4 title-row book-title" data-id="<%= book._id%>" ><%= book.title%></div>
+			<div class="col-md-4 author-row book-author"><%= book.author%></div>
+			<div class="col-md-4 actions-row">
+			<div class="cont">
+				<button class="btn btn-primary btn-edit">Edit</button>
+				<button class="btn btn-danger btn-delete">Delete</button>
+			</div>
+			</div>
+		</div>
+	  <% }); %>
+    </div>
+  </div>
+</div>
+
+<div class="bg-overlay vh-100 hide-modal" id="edit-form-modal">
+
+  <div class="container-fluid d-flex h-100 flex-column justify-content-center">
+<span class="close-modal btn-secondary btn">x</span>
+    <form action="" id="edit-book-form" class="w-100">
+      <h2>Edit Book</h2>
+      <input id="edit-id" type="hidden"/>
+      <div class="form-group">
+        <label for="edit-title">Edit Title</label>
+        <input type="text" id="edit-title" name="title" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="edit-author">Edit Author</label>
+        <input
+          type="text"
+          id="edit-author"
+          name="author"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <button type="submit" id="edit-submit" class="btn btn-success">
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="bg-overlay hide-modal" id="delete-form-modal">
+  <div class="container-fluid d-flex h-100 flex-column justify-content-center">
+  <span class="close-modal btn btn-secondary">x</span>
+    <form action="" id="delete-book-form">
+      <h2>Delete Book</h2>
+      <input id="delete-id" type="hidden"/>
+      <div class="form-group">
+        <label for="delete-title">Delete Title</label>
+        <input
+          type="text"
+          id="delete-title"
+          name="title"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="delete-author">Delete Author</label>
+        <input
+          type="text"
+          id="delete-author"
+          name="author"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <button type="submit" id="delete-submit" class="btn btn-danger">
+          Delete
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="axios.min.js"></script>
+<script src="appscript.js"></script>
+
+<%- include('partials/footer') %>
